@@ -1,28 +1,29 @@
-version: '3.8'
+version: '3'
 
 services:
-  app:
-    image: your-app-image
-    build:
-      context: .
-      dockerfile: Dockerfile
+  localstack-for-scheduler:
+    image: localstack/localstack:0.12.0
     ports:
-      - "8080:8080"
-    depends_on:
-      - dynamodb
-    environment:
-      - SPRING_PROFILES_ACTIVE=local
-      - AWS_ACCESS_KEY_ID=your-access-key
-      - AWS_SECRET_ACCESS_KEY=your-secret-key
-      - AWS_REGION=your-region
-      - DYNAMODB_ENDPOINT=http://dynamodb:8000
-
-  dynamodb:
-    image: amazon/dynamodb-local
-    ports:
+      - "5566:4566"
       - "8000:8000"
+    environment:
+      - SERVICES=dynamodb
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - DEFAULT_REGION=us-west-2
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
     volumes:
-      - dynamodb-data:/home/dynamodblocal/data
+      - localstack_data:/tmp/localstack/data
+
+  dynamodb-admin-for-scheduler:
+    image: aaronshaf/dynamodb-admin
+    ports:
+      - "8002:8001"
+    environment:
+      - DYNAMO_ENDPOINT=http://localstack:4566
+    depends_on:
+      - localstack-for-scheduler
 
 volumes:
-  dynamodb-data:
+  localstack_data:

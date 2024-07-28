@@ -14,8 +14,8 @@ public class DynamoDBConfig {
     @Bean
     public AmazonDynamoDB amazonDynamoDB() {
         return AmazonDynamoDBClientBuilder.standard()
-                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("http://localhost:8080", "us-west-2"))
-                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("access-key", "secret-key")))
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration("http://localhost:4566", "us-west-2"))
+                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("test", "test")))
                 .build();
     }
 
