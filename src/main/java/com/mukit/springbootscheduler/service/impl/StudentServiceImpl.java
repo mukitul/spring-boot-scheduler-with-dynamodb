@@ -21,6 +21,15 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
 
     @Override
+    public void save(Student student) {
+        try {
+            studentRepository.save(student);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    @Override
     public List<Student> findAllEligibleStudents() {
         List<Student> eligibleStudents = new ArrayList<>();
         try {

@@ -1,10 +1,12 @@
 package com.mukit.springbootscheduler.entity;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 @Data
+@Builder
 @DynamoDBTable(tableName = "student")
 public class Student {
 

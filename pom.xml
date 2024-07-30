@@ -52,6 +52,21 @@
         </dependency>
         <!--Dynamo DB Dependencies-->
 
+        <!--SHEDLOCK Dependencies: required for multi-instance scheduler locking-->
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-spring</artifactId>
+            <version>4.42.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.javacrumbs.shedlock</groupId>
+            <artifactId>shedlock-provider-dynamodb2</artifactId>
+            <version>4.42.0</version>
+        </dependency>
+        <!--SHEDLOCK Dependencies: required for multi-instance scheduler locking-->
+
+
     </dependencies>
 
     <build>

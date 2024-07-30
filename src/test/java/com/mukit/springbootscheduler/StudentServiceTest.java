@@ -1,5 +1,7 @@
 package com.mukit.springbootscheduler;
 
+import com.mukit.springbootscheduler.entity.Student;
+import com.mukit.springbootscheduler.enums.StudentStatus;
 import com.mukit.springbootscheduler.service.StudentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,5 +19,17 @@ public class StudentServiceTest {
     @Test
     public void test_findEligibleStudent() {
         studentService.findAllEligibleStudents();
+    }
+
+    @Test
+    public void test_save() {
+        Student student = Student.builder()
+                .studentId("std-1234")
+                .name("std-name")
+                .age(20)
+                .email("std@email.com")
+                .status(StudentStatus.ACTIVE.name())
+                .build();
+        studentService.save(student);
     }
 }
