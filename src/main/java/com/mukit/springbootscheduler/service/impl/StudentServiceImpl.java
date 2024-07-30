@@ -6,6 +6,7 @@ import com.mukit.springbootscheduler.repository.StudentRepository;
 import com.mukit.springbootscheduler.service.StudentService;
 import com.mukit.springbootscheduler.utils.DateUtils;
 import lombok.RequiredArgsConstructor;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,11 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
 
     @Override
+    @SchedulerLock(name = "StudentScheduler_doTask", lockAtLeastFor = "PT10S", lockAtMostFor = "PT10S")
+    public void resolve() {
+        log.info("............ Dispute Resolving ................");
+    }
+
     public void save(Student student) {
         try {
             studentRepository.save(student);
@@ -29,7 +35,6 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
-    @Override
     public List<Student> findAllEligibleStudents() {
         List<Student> eligibleStudents = new ArrayList<>();
         try {
