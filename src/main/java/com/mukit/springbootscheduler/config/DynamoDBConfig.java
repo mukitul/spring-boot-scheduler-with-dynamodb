@@ -23,8 +23,8 @@ public class DynamoDBConfig {
     public DynamoDbClient dynamoDbClient() {
         AwsBasicCredentials awsCreds = AwsBasicCredentials.create("non_empty_key", "non_empty_key");
         return DynamoDbClient.builder()
-                .region(Region.AP_SOUTH_1)
-                .endpointOverride(URI.create("http://localhost:4566"))
+                .region(Region.AP_SOUTHEAST_1)
+                .endpointOverride(URI.create("http://localstack-for-scheduler:4566"))
                 .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
                 .build();
     }
@@ -33,7 +33,7 @@ public class DynamoDBConfig {
     public AmazonDynamoDB amazonDynamoDB() {
         return AmazonDynamoDBClientBuilder.standard()
                 .withEndpointConfiguration(new AwsClientBuilder
-                        .EndpointConfiguration("http://localhost:4566", "ap-southeast-1"))
+                        .EndpointConfiguration("http://localstack-for-scheduler:4566", "ap-southeast-1"))
                 .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("non_empty_key", "non_empty_key")))
                 .build();
     }
