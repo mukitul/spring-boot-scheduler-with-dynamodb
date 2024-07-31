@@ -1,6 +1,7 @@
 package com.mukit.springbootscheduler.scheduler;
 
 
+import com.mukit.springbootscheduler.service.StudentService;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +13,15 @@ public class StudentScheduler {
 
     private static final Logger log = LoggerFactory.getLogger(StudentScheduler.class);
 
+    private final StudentService studentService;
+
+    public StudentScheduler(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
     @Scheduled(cron = "*/2 * * * * ?")
-    @SchedulerLock(name = "StudentScheduler_doTask", lockAtLeastFor = "PT10S", lockAtMostFor = "PT10S")
     public void doTask() {
-        log.info("running...");
+        log.info("Scheduler Started .........");
+        studentService.resolve();
     }
 }

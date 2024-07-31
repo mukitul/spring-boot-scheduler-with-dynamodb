@@ -1,12 +1,10 @@
 version: '3'
 
 services:
-  scheduler-instance-1:
+  scheduler-1:
     build: .
     depends_on:
       - localstack-for-scheduler
-    ports:
-      - "9090:9090"
 
   localstack-for-scheduler:
     image: localstack/localstack:0.12.0
@@ -15,11 +13,11 @@ services:
       - "8000:8000"
     environment:
       - SERVICES=dynamodb
-      - DEBUG=1
+#      - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
       - DEFAULT_REGION=ap-southeast-1
-      - AWS_ACCESS_KEY_ID=test
-      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_ACCESS_KEY_ID=non_empty_key
+      - AWS_SECRET_ACCESS_KEY=non_empty_key
     volumes:
       - localstack_data:/tmp/localstack/data
 
