@@ -5,6 +5,9 @@ services:
     build: .
     depends_on:
       - localstack-for-scheduler
+      - redis-master-for-scheduler
+    networks:
+      - redis-replication-for-scheduler
 
   localstack-for-scheduler:
     image: localstack/localstack:0.12.0
@@ -13,7 +16,7 @@ services:
       - "8000:8000"
     environment:
       - SERVICES=dynamodb
-#      - DEBUG=1
+      #      - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
       - DEFAULT_REGION=ap-southeast-1
       - AWS_ACCESS_KEY_ID=non_empty_key
@@ -29,6 +32,29 @@ services:
       - DYNAMO_ENDPOINT=http://localstack-for-scheduler:4566
     depends_on:
       - localstack-for-scheduler
+
+  redis-master-for-scheduler:
+    image: redis
+    container_name: redis-master-for-scheduler
+    ports:
+      - "6379:6379"
+    networks:
+      - redis-replication-for-scheduler
+
+  redis-slave-for-scheduler:
+    image: redis
+    container_name: redis-slave-for-scheduler
+    command: redis-server --slaveof redis-master-for-scheduler 6379
+    depends_on:
+      - redis-master-for-scheduler
+    ports:
+      - "16379:6379"
+    networks:
+      - redis-replication-for-scheduler
+
+networks:
+  redis-replication-for-scheduler:
+    driver: bridge
 
 volumes:
   localstack_data:

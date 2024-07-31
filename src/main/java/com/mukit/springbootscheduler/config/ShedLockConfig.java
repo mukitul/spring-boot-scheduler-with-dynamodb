@@ -1,12 +1,12 @@
 package com.mukit.springbootscheduler.config;
 
 import net.javacrumbs.shedlock.core.LockProvider;
-import net.javacrumbs.shedlock.provider.dynamodb2.DynamoDBLockProvider;
+import net.javacrumbs.shedlock.provider.redis.spring.RedisLockProvider;
 import net.javacrumbs.shedlock.spring.annotation.EnableSchedulerLock;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 
 @Configuration
 @EnableScheduling
@@ -24,9 +24,14 @@ public class ShedLockConfig {
      *
      * */
 
+//    @Bean
+//    public LockProvider lockProvider(DynamoDbClient dynamodbClient) {
+//        return new DynamoDBLockProvider(dynamodbClient, "shedlock");
+//    }
+
     @Bean
-    public LockProvider lockProvider(DynamoDbClient dynamodbClient) {
-        return new DynamoDBLockProvider(dynamodbClient, "shedlock");
+    public LockProvider lockProvider(RedisConnectionFactory connectionFactory) {
+        return new RedisLockProvider(connectionFactory, "");
     }
 
 }
