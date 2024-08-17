@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+
 @Component
 public class StudentScheduler {
 
@@ -18,9 +20,9 @@ public class StudentScheduler {
         this.studentService = studentService;
     }
 
-    @Scheduled(cron = "*/2 * * * * ?")
+    @Scheduled(cron = "*/5 * * * * ?")
     public void doTask() {
-        log.info("Scheduler Started .........");
+        log.info("Scheduler Started: {}", Instant.now());
         studentService.resolve();
     }
 }

@@ -1,13 +1,13 @@
 version: '3'
 
 services:
-  scheduler-1:
-    build: .
-    depends_on:
-      - localstack-for-scheduler
-      - redis-master-for-scheduler
-    networks:
-      - redis-replication-for-scheduler
+#  scheduler-1:
+#    build: .
+#    depends_on:
+#      - localstack-for-scheduler
+#      - redis-master-for-scheduler
+#    networks:
+#      - redis-replication-for-scheduler
 
   localstack-for-scheduler:
     image: localstack/localstack:0.12.0

@@ -18,9 +18,9 @@ public class StudentServiceImpl implements StudentService {
 //    private final StudentRepository studentRepository;
 
     @Override
-    @SchedulerLock(name = "StudentScheduler_doTask", lockAtLeastFor = "PT10S", lockAtMostFor = "PT10S")
+//    @SchedulerLock(name = "StudentScheduler_doTask", lockAtLeastFor = "PT10S", lockAtMostFor = "PT10S")
     public void resolve() {
-        log.info("............ Dispute Resolving ................");
+//        log.info("............ Dispute Resolving ................");
     }
 
 //    public void save(Student student) {

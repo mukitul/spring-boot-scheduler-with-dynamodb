@@ -27,7 +27,7 @@ public class DynamoDBConfig {
     public AmazonDynamoDB amazonDynamoDB() {
         return AmazonDynamoDBClientBuilder.standard()
                 .withEndpointConfiguration(new AwsClientBuilder
-                        .EndpointConfiguration("http://localstack-for-scheduler:4566", "ap-southeast-1"))
+                        .EndpointConfiguration("http://localhost:4566", "ap-southeast-1"))
                 .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("non_empty_key", "non_empty_key")))
                 .build();
     }
